@@ -1,0 +1,401 @@
+# File: SQL-Concepts/01_SQL_Basics/README.md
+
+````md
+# SQL Basics
+
+## Introduction
+SQL (Structured Query Language) is the standard language used to manage and interact with relational databases. It allows users to store, retrieve, update, and delete data efficiently.
+
+SQL is one of the most important technical skills because nearly every software application depends on data.
+
+Examples:
+- Banking systems manage customer transactions
+- E-commerce platforms manage products and orders
+- Hospitals manage patient records
+- Social media platforms manage users and posts
+
+---
+
+# Why SQL is Important
+SQL is essential because it:
+- Organizes data
+- Makes searching fast
+- Ensures data accuracy
+- Supports decision-making
+- Powers real-world applications
+
+Without SQL, managing large amounts of structured data becomes difficult.
+
+---
+
+# What is a Database?
+A database is an organized collection of data.
+
+Example:
+A school database may contain:
+- Students
+- Teachers
+- Courses
+- Marks
+
+---
+
+# Types of Databases
+
+## Relational Database (SQL)
+Stores data in tables with relationships.
+
+Examples:
+- MySQL
+- PostgreSQL
+- SQL Server
+- Oracle
+
+## Non-Relational Database (NoSQL)
+Stores data in flexible formats like JSON.
+
+Examples:
+- MongoDB
+- Firebase
+
+---
+
+# What is a Table?
+A table stores data in rows and columns.
+
+Example: Students Table
+
+| ID | Name | Age | Course |
+|----|------|-----|--------|
+| 1  | Ravi | 20  | SQL    |
+| 2  | Anu  | 21  | Python |
+
+---
+
+# Row
+A row is a single record in a table.
+
+Example:
+1 | Ravi | 20 | SQL
+
+---
+
+# Column
+A column is a specific field.
+
+Examples:
+- Name
+- Age
+- Course
+
+---
+
+# Common SQL Data Types
+
+## INT
+Stores whole numbers  
+Example: 10, 25, 100
+
+## VARCHAR(n)
+Stores text  
+Example: VARCHAR(50)
+
+## DATE
+Stores date values
+
+## FLOAT
+Stores decimal values
+
+## BOOLEAN
+Stores true/false
+
+---
+
+# SQL Command Categories
+
+## DDL (Data Definition Language)
+Used to define database structure:
+- CREATE
+- ALTER
+- DROP
+- TRUNCATE
+
+## DML (Data Manipulation Language)
+Used to manage data:
+- INSERT
+- UPDATE
+- DELETE
+
+## DQL (Data Query Language)
+Used to retrieve data:
+- SELECT
+
+## DCL (Data Control Language)
+Used to control permissions:
+- GRANT
+- REVOKE
+
+## TCL (Transaction Control Language)
+Used for transactions:
+- COMMIT
+- ROLLBACK
+
+---
+
+# Creating a Database
+
+```sql
+CREATE DATABASE school;
+````
+
+This creates a database named school.
+
+---
+
+# Selecting a Database
+
+```sql
+USE school;
+```
+
+This tells SQL to work inside the school database.
+
+---
+
+# Creating a Table
+
+```sql
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(50),
+    age INT,
+    course VARCHAR(50)
+);
+```
+
+---
+
+# Understanding the Table Structure
+
+* id → Student ID
+* name → Student Name
+* age → Student Age
+* course → Student Course
+
+---
+
+# Basic SQL Operations
+
+## INSERT
+
+Adds data:
+
+```sql
+INSERT INTO students (id, name, age, course)
+VALUES (1, 'Ravi', 20, 'SQL');
+```
+
+---
+
+## SELECT
+
+Displays data:
+
+```sql
+SELECT * FROM students;
+```
+
+---
+
+## UPDATE
+
+Changes data:
+
+```sql
+UPDATE students
+SET course = 'Python'
+WHERE id = 1;
+```
+
+---
+
+## DELETE
+
+Removes data:
+
+```sql
+DELETE FROM students
+WHERE id = 1;
+```
+
+---
+
+# SQL Constraints
+
+## PRIMARY KEY
+
+Ensures uniqueness.
+
+```sql
+id INT PRIMARY KEY
+```
+
+## NOT NULL
+
+Prevents empty values.
+
+## UNIQUE
+
+Prevents duplicates.
+
+## DEFAULT
+
+Sets default values.
+
+---
+
+# Example with Primary Key
+
+```sql
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+```
+
+---
+
+# Important SQL Rules
+
+## Rule 1:
+
+Always use WHERE in UPDATE and DELETE when targeting specific records.
+
+Wrong:
+
+```sql
+DELETE FROM students;
+```
+
+This deletes all rows.
+
+Correct:
+
+```sql
+DELETE FROM students
+WHERE id = 1;
+```
+
+---
+
+## Rule 2:
+
+Use meaningful table names.
+
+Good:
+
+* students
+* employees
+* orders
+
+Bad:
+
+* data1
+* table2
+
+---
+
+# Beginner Mistakes
+
+## Forgetting WHERE
+
+Can delete or update all records.
+
+## Wrong Data Types
+
+Inserting text into INT columns causes errors.
+
+## Duplicate IDs
+
+Primary keys must be unique.
+
+---
+
+# Full Beginner Workflow Example
+
+```sql
+CREATE DATABASE school;
+
+USE school;
+
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+
+INSERT INTO students VALUES (1, 'Ravi', 20);
+
+SELECT * FROM students;
+
+UPDATE students
+SET age = 21
+WHERE id = 1;
+
+DELETE FROM students
+WHERE id = 1;
+```
+
+---
+
+# Practice Exercises
+
+1. Create a database named college
+2. Create a students table
+3. Insert 5 students
+4. Display all students
+5. Update one student
+6. Delete one student
+7. Add a primary key
+
+---
+
+# Real-World Applications
+
+SQL Basics are used in:
+
+* Login systems
+* Shopping carts
+* Employee systems
+* Inventory management
+* Student portals
+
+---
+
+# Summary
+
+SQL Basics includes:
+
+* Database
+* Table
+* Rows
+* Columns
+* Data Types
+* CREATE
+* INSERT
+* SELECT
+* UPDATE
+* DELETE
+* Constraints
+
+---
+
+# Key Takeaway
+
+SQL Basics is the foundation of database development. Mastering these concepts makes advanced topics like Joins, Functions, and Optimization much easier.
+
+A strong understanding of SQL Basics demonstrates that you can build and manage structured data systems effectively.
+
+```
+```
