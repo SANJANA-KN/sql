@@ -1,0 +1,445 @@
+# Functions in SQL
+
+## Introduction
+Functions in SQL are built-in operations used to perform calculations, transform data, summarize information, and manipulate values efficiently.
+
+Instead of manually processing data row by row, SQL functions automate calculations directly inside queries.
+
+Examples:
+- Count total employees  
+- Find average salary  
+- Convert names to uppercase  
+- Get current date  
+- Find highest product price  
+
+Functions are essential because they make SQL powerful, faster, and suitable for reporting, analytics, and real-world applications.
+
+---
+
+# Why SQL Functions are Important
+Functions help:
+- Perform calculations
+- Summarize large datasets
+- Clean and format data
+- Work with dates and time
+- Improve reporting
+- Reduce manual effort
+
+---
+
+# Categories of SQL Functions
+
+## 1. Aggregate Functions
+Used to perform calculations on multiple rows.
+
+## 2. String Functions
+Used to manipulate text values.
+
+## 3. Numeric Functions
+Used for mathematical calculations.
+
+## 4. Date Functions
+Used for working with dates and time.
+
+---
+
+# Sample Table for Practice
+
+```sql
+CREATE DATABASE company;
+
+USE company;
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    department VARCHAR(50),
+    salary FLOAT,
+    joining_date DATE
+);
+```
+
+---
+
+# Sample Data
+
+```sql
+INSERT INTO employees VALUES
+(1, 'John', 25, 'IT', 50000, '2022-01-10'),
+(2, 'Sara', 30, 'HR', 45000, '2021-05-15'),
+(3, 'Mike', 28, 'Finance', 60000, '2020-03-20'),
+(4, 'Anu', 22, 'IT', 55000, '2023-07-12');
+```
+
+---
+
+# AGGREGATE FUNCTIONS
+
+# COUNT()
+Counts total rows.
+
+```sql
+SELECT COUNT(*) AS total_employees
+FROM employees;
+```
+
+---
+
+# SUM()
+Calculates total value.
+
+```sql
+SELECT SUM(salary) AS total_salary
+FROM employees;
+```
+
+---
+
+# AVG()
+Calculates average value.
+
+```sql
+SELECT AVG(salary) AS average_salary
+FROM employees;
+```
+
+---
+
+# MIN()
+Finds smallest value.
+
+```sql
+SELECT MIN(salary) AS lowest_salary
+FROM employees;
+```
+
+---
+
+# MAX()
+Finds largest value.
+
+```sql
+SELECT MAX(salary) AS highest_salary
+FROM employees;
+```
+
+---
+
+# STRING FUNCTIONS
+
+# UPPER()
+Converts text to uppercase.
+
+```sql
+SELECT UPPER(name)
+FROM employees;
+```
+
+---
+
+# LOWER()
+Converts text to lowercase.
+
+```sql
+SELECT LOWER(name)
+FROM employees;
+```
+
+---
+
+# LENGTH()
+Finds text length.
+
+```sql
+SELECT LENGTH(name)
+FROM employees;
+```
+
+---
+
+# CONCAT()
+Combines text.
+
+```sql
+SELECT CONCAT(name, ' - ', department)
+FROM employees;
+```
+
+---
+
+# SUBSTRING()
+Extracts part of text.
+
+```sql
+SELECT SUBSTRING(name, 1, 3)
+FROM employees;
+```
+
+---
+
+# TRIM()
+Removes extra spaces.
+
+```sql
+SELECT TRIM(name)
+FROM employees;
+```
+
+---
+
+# NUMERIC FUNCTIONS
+
+# ROUND()
+Rounds decimal numbers.
+
+```sql
+SELECT ROUND(salary, 0)
+FROM employees;
+```
+
+---
+
+# CEIL()
+Rounds up.
+
+```sql
+SELECT CEIL(45000.25);
+```
+
+---
+
+# FLOOR()
+Rounds down.
+
+```sql
+SELECT FLOOR(45000.99);
+```
+
+---
+
+# ABS()
+Returns absolute value.
+
+```sql
+SELECT ABS(-500);
+```
+
+---
+
+# MOD()
+Returns remainder.
+
+```sql
+SELECT MOD(10, 3);
+```
+
+---
+
+# DATE FUNCTIONS
+
+# NOW()
+Returns current date and time.
+
+```sql
+SELECT NOW();
+```
+
+---
+
+# CURDATE()
+Returns current date.
+
+```sql
+SELECT CURDATE();
+```
+
+---
+
+# YEAR()
+Extracts year.
+
+```sql
+SELECT YEAR(joining_date)
+FROM employees;
+```
+
+---
+
+# MONTH()
+Extracts month.
+
+```sql
+SELECT MONTH(joining_date)
+FROM employees;
+```
+
+---
+
+# DATEDIFF()
+Finds difference between dates.
+
+```sql
+SELECT DATEDIFF(CURDATE(), joining_date)
+FROM employees;
+```
+
+---
+
+# Combining Functions with Conditions
+
+## Example:
+```sql
+SELECT AVG(salary)
+FROM employees
+WHERE department = 'IT';
+```
+
+---
+
+# Using Functions with GROUP BY
+
+```sql
+SELECT department, COUNT(*) AS total
+FROM employees
+GROUP BY department;
+```
+
+---
+
+# Real-World Examples
+
+## Total Employees:
+```sql
+SELECT COUNT(*) FROM employees;
+```
+
+## Highest Salary:
+```sql
+SELECT MAX(salary) FROM employees;
+```
+
+## Average IT Salary:
+```sql
+SELECT AVG(salary)
+FROM employees
+WHERE department = 'IT';
+```
+
+## Employee Name in Uppercase:
+```sql
+SELECT UPPER(name)
+FROM employees;
+```
+
+---
+
+# Common Mistakes
+
+## Mistake 1: Using Aggregate Without GROUP BY
+Wrong when mixing grouped and non-grouped columns.
+
+---
+
+## Mistake 2: Confusing COUNT(*) with COUNT(column)
+COUNT(*) counts all rows  
+COUNT(column) ignores NULL values
+
+---
+
+## Mistake 3: Wrong String Position in SUBSTRING
+```sql
+SUBSTRING(name, start, length)
+```
+
+---
+
+# Best Practices
+
+## 1. Use Aliases
+```sql
+SELECT AVG(salary) AS average_salary
+FROM employees;
+```
+
+---
+
+## 2. Combine Functions with Filters
+Makes reports more meaningful.
+
+---
+
+## 3. Use Proper Data Types
+Date functions require DATE columns.
+
+---
+
+# Practice Exercises
+
+1. Count total employees  
+2. Find highest salary  
+3. Find lowest salary  
+4. Show names in uppercase  
+5. Find average salary by department  
+6. Extract joining year  
+7. Calculate total salary expense  
+
+---
+
+# Real-World Applications
+
+SQL Functions are used in:
+- Payroll systems
+- Sales dashboards
+- Employee analytics
+- Financial reports
+- Data cleaning
+- Business intelligence
+
+---
+
+# Summary
+
+Aggregate Functions:
+- COUNT()
+- SUM()
+- AVG()
+- MIN()
+- MAX()
+
+String Functions:
+- UPPER()
+- LOWER()
+- LENGTH()
+- CONCAT()
+- SUBSTRING()
+- TRIM()
+
+Numeric Functions:
+- ROUND()
+- CEIL()
+- FLOOR()
+- ABS()
+- MOD()
+
+Date Functions:
+- NOW()
+- CURDATE()
+- YEAR()
+- MONTH()
+- DATEDIFF()
+
+---
+
+# Key Takeaway
+
+SQL Functions are essential for transforming raw data into useful insights.
+
+Mastering SQL Functions helps you:
+- Perform calculations quickly
+- Build professional reports
+- Analyze large datasets
+- Clean and structure data
+- Improve query efficiency
+
+A strong understanding of SQL Functions is critical before learning Group By, Having, and Advanced SQL Analytics.
