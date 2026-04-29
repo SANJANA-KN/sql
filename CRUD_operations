@@ -1,0 +1,390 @@
+# CRUD Operations in SQL
+
+## Introduction
+CRUD stands for:
+
+- **C** → Create  
+- **R** → Read  
+- **U** → Update  
+- **D** → Delete  
+
+CRUD operations are the foundation of database interaction. Almost every real-world application depends on these four actions.
+
+Examples:
+- Social media → Create posts, Read feeds, Update profiles, Delete comments  
+- Banking → Create accounts, Read balances, Update information, Delete inactive records  
+- E-commerce → Add products, View products, Update prices, Remove products  
+
+Understanding CRUD means understanding how data is managed in practical systems.
+
+---
+
+# Why CRUD is Important
+CRUD is essential because it allows:
+- Data storage
+- Data retrieval
+- Data modification
+- Data removal
+
+Without CRUD, databases would not be useful for applications.
+
+---
+
+# Before CRUD: Create a Sample Table
+
+```sql
+CREATE DATABASE company;
+
+USE company;
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    department VARCHAR(50),
+    salary FLOAT
+);
+```
+
+---
+
+# C → CREATE (INSERT)
+
+## Purpose:
+Used to add new records into a table.
+
+## Syntax:
+```sql
+INSERT INTO table_name (column1, column2, column3)
+VALUES (value1, value2, value3);
+```
+
+---
+
+# Example:
+```sql
+INSERT INTO employees (id, name, age, department, salary)
+VALUES (1, 'John', 25, 'IT', 50000);
+```
+
+---
+
+# Insert Multiple Records:
+```sql
+INSERT INTO employees (id, name, age, department, salary)
+VALUES
+(2, 'Sara', 28, 'HR', 45000),
+(3, 'Mike', 30, 'Finance', 60000);
+```
+
+---
+
+# Important Notes:
+- Values must match column order
+- Data types must match
+- Primary keys must be unique
+
+---
+
+# R → READ (SELECT)
+
+## Purpose:
+Used to retrieve data from a table.
+
+## Basic Syntax:
+```sql
+SELECT * FROM employees;
+```
+
+### Output:
+Shows all columns and all rows.
+
+---
+
+# Select Specific Columns:
+```sql
+SELECT name, salary FROM employees;
+```
+
+---
+
+# Using WHERE:
+```sql
+SELECT * FROM employees
+WHERE department = 'IT';
+```
+
+---
+
+# Using DISTINCT:
+```sql
+SELECT DISTINCT department FROM employees;
+```
+
+---
+
+# Why READ Matters:
+READ operations are used for:
+- Dashboards
+- Search results
+- Reports
+- User profiles
+
+---
+
+# U → UPDATE
+
+## Purpose:
+Used to modify existing records.
+
+## Syntax:
+```sql
+UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+```
+
+---
+
+# Example:
+```sql
+UPDATE employees
+SET salary = 55000
+WHERE id = 1;
+```
+
+---
+
+# Update Multiple Columns:
+```sql
+UPDATE employees
+SET department = 'Management',
+    salary = 70000
+WHERE id = 2;
+```
+
+---
+
+# Warning:
+Without WHERE:
+```sql
+UPDATE employees
+SET salary = 50000;
+```
+
+This updates every employee.
+
+---
+
+# Best Practice:
+Always verify with SELECT before UPDATE:
+```sql
+SELECT * FROM employees
+WHERE id = 1;
+```
+
+---
+
+# D → DELETE
+
+## Purpose:
+Used to remove records from a table.
+
+## Syntax:
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+---
+
+# Example:
+```sql
+DELETE FROM employees
+WHERE id = 3;
+```
+
+---
+
+# Dangerous Example:
+```sql
+DELETE FROM employees;
+```
+
+This deletes all records.
+
+---
+
+# DELETE vs DROP vs TRUNCATE
+
+## DELETE
+Removes selected rows  
+Table remains
+
+## TRUNCATE
+Removes all rows  
+Table remains
+
+## DROP
+Deletes entire table structure
+
+---
+
+# Example:
+```sql
+TRUNCATE TABLE employees;
+```
+
+```sql
+DROP TABLE employees;
+```
+
+---
+
+# Common CRUD Mistakes
+
+## Mistake 1: Missing WHERE Clause
+```sql
+DELETE FROM employees;
+```
+
+Deletes every record.
+
+---
+
+## Mistake 2: Duplicate Primary Key
+```sql
+INSERT INTO employees VALUES (1, 'Sam', 24, 'IT', 40000);
+```
+
+Fails if ID already exists.
+
+---
+
+## Mistake 3: Wrong Data Types
+```sql
+INSERT INTO employees (id) VALUES ('John');
+```
+
+Fails because ID expects INT.
+
+---
+
+# Real-World CRUD Examples
+
+## User Registration:
+```sql
+INSERT INTO users VALUES (1, 'Ravi', 'ravi@email.com');
+```
+
+## View User:
+```sql
+SELECT * FROM users
+WHERE id = 1;
+```
+
+## Update User:
+```sql
+UPDATE users
+SET email = 'newravi@email.com'
+WHERE id = 1;
+```
+
+## Delete User:
+```sql
+DELETE FROM users
+WHERE id = 1;
+```
+
+---
+
+# CRUD Workflow Example
+
+```sql
+CREATE DATABASE company;
+
+USE company;
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+
+INSERT INTO employees VALUES (1, 'John', 25);
+
+SELECT * FROM employees;
+
+UPDATE employees
+SET age = 26
+WHERE id = 1;
+
+DELETE FROM employees
+WHERE id = 1;
+```
+
+---
+
+# Best Practices
+
+## 1. Always Use WHERE
+Prevents accidental updates/deletes.
+
+## 2. Validate Data Before Insert
+Ensure proper data types.
+
+## 3. Use Primary Keys
+Prevents duplicates.
+
+## 4. Backup Before Bulk Delete
+Important for production systems.
+
+---
+
+# Practice Exercises
+
+1. Create an employees table  
+2. Insert 5 employees  
+3. Display all employees  
+4. Show only IT employees  
+5. Update one employee salary  
+6. Delete one employee  
+7. Insert multiple employees  
+
+---
+
+# Real-World Applications
+
+CRUD is used in:
+- Login systems
+- Banking systems
+- E-commerce platforms
+- Employee databases
+- Hospital management
+- Inventory systems
+
+---
+
+# Summary
+
+CRUD includes:
+
+* CREATE → INSERT
+* READ → SELECT
+* UPDATE → UPDATE
+* DELETE → DELETE
+
+---
+
+# Key Takeaway
+
+CRUD operations are the backbone of SQL and database management.
+
+Mastering CRUD means you can:
+- Build applications
+- Manage data professionally
+- Handle real-world systems
+- Prepare for interviews and projects effectively
+
+A strong understanding of CRUD is essential before learning Filtering, Functions, Joins, and Advanced SQL.
+```
