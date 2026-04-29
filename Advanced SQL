@@ -1,0 +1,162 @@
+# Advanced SQL
+
+## Introduction
+Advanced SQL includes powerful concepts used for complex data analysis, optimization, automation, and enterprise-level database solutions.
+
+Examples:
+- Window Functions
+- Common Table Expressions (CTEs)
+- Recursive Queries
+- Case Statements
+- Temporary Tables
+- Triggers
+
+---
+
+# Why Advanced SQL is Important
+Advanced SQL helps:
+- Solve complex business problems
+- Build advanced analytics
+- Improve reporting
+- Optimize large systems
+- Support enterprise solutions
+
+---
+
+# Window Functions
+
+## ROW_NUMBER()
+```sql
+SELECT name, salary,
+ROW_NUMBER() OVER (ORDER BY salary DESC) AS rank
+FROM employees;
+```
+
+---
+
+## RANK()
+```sql
+SELECT name, salary,
+RANK() OVER (ORDER BY salary DESC) AS rank
+FROM employees;
+```
+
+---
+
+# PARTITION BY
+```sql
+SELECT name, department, salary,
+RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank
+FROM employees;
+```
+
+---
+
+# Common Table Expressions (CTE)
+
+```sql
+WITH HighSalary AS (
+    SELECT * FROM employees
+    WHERE salary > 50000
+)
+SELECT * FROM HighSalary;
+```
+
+---
+
+# Recursive CTE
+```sql
+WITH RECURSIVE numbers AS (
+    SELECT 1
+    UNION ALL
+    SELECT n + 1 FROM numbers WHERE n < 5
+)
+SELECT * FROM numbers;
+```
+
+---
+
+# CASE Statement
+
+```sql
+SELECT name,
+CASE
+    WHEN salary > 50000 THEN 'High'
+    ELSE 'Low'
+END AS salary_status
+FROM employees;
+```
+
+---
+
+# Temporary Tables
+
+```sql
+CREATE TEMPORARY TABLE temp_employees AS
+SELECT * FROM employees;
+```
+
+---
+
+# Triggers
+
+```sql
+CREATE TRIGGER before_insert_employee
+BEFORE INSERT ON employees
+FOR EACH ROW
+SET NEW.created_at = NOW();
+```
+
+---
+
+# Performance Optimization
+- Proper indexing
+- Query planning
+- Partitioning
+- Efficient joins
+
+---
+
+# Best Practices
+- Use CTEs for readability
+- Use window functions for ranking
+- Avoid unnecessary nesting
+- Optimize queries
+
+---
+
+# Real-World Applications
+- Data warehousing
+- Analytics dashboards
+- Financial systems
+- ERP
+- BI tools
+
+---
+
+# Practice Exercises
+
+1. Rank employees  
+2. Use partitioning  
+3. Create CTE  
+4. Build recursive query  
+5. Use CASE  
+6. Create trigger  
+
+---
+
+# Summary
+
+Advanced SQL includes:
+- Window Functions
+- CTEs
+- Recursive Queries
+- CASE
+- Triggers
+- Temporary Tables
+
+---
+
+# Key Takeaway
+
+Advanced SQL transforms basic querying into enterprise-grade data engineering and analytics.
