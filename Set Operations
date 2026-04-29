@@ -1,0 +1,374 @@
+# Set Operations in SQL
+
+## Introduction
+Set Operations in SQL are used to combine the results of two or more SELECT queries into a single result set.
+
+These operations are based on mathematical set theory and help compare, merge, or filter datasets.
+
+Examples:
+- Combine customer lists from multiple branches  
+- Find common employees in two projects  
+- Show records in one table but not another  
+- Merge student lists from different departments  
+
+Set Operations are useful when working with similar structured datasets.
+
+---
+
+# Why Set Operations are Important
+Set Operations help:
+- Combine multiple datasets
+- Remove duplicates
+- Compare tables
+- Identify common records
+- Find missing records
+- Support reporting across systems
+
+---
+
+# Types of Set Operations
+- UNION
+- UNION ALL
+- INTERSECT
+- EXCEPT (or MINUS in some databases)
+
+---
+
+# Important Rules Before Using Set Operations
+
+## Rule 1:
+Each SELECT statement must have the same number of columns.
+
+## Rule 2:
+Columns must have compatible data types.
+
+## Rule 3:
+Column order should match logically.
+
+---
+
+# Sample Tables for Practice
+
+## Table A: IT Employees
+```sql
+CREATE TABLE it_employees (
+    id INT,
+    name VARCHAR(50)
+);
+```
+
+---
+
+## Table B: HR Employees
+```sql
+CREATE TABLE hr_employees (
+    id INT,
+    name VARCHAR(50)
+);
+```
+
+---
+
+# Sample Data
+
+```sql
+INSERT INTO it_employees VALUES
+(1, 'John'),
+(2, 'Sara'),
+(3, 'Mike');
+
+INSERT INTO hr_employees VALUES
+(2, 'Sara'),
+(4, 'Anu'),
+(5, 'David');
+```
+
+---
+
+# UNION
+
+## Definition:
+Combines results from multiple queries and removes duplicates.
+
+## Syntax:
+```sql
+SELECT column_name FROM table1
+UNION
+SELECT column_name FROM table2;
+```
+
+---
+
+# Example:
+```sql
+SELECT name FROM it_employees
+UNION
+SELECT name FROM hr_employees;
+```
+
+---
+
+# Result:
+John  
+Sara  
+Mike  
+Anu  
+David  
+
+Sara appears once because duplicates are removed.
+
+---
+
+# UNION ALL
+
+## Definition:
+Combines results and keeps duplicates.
+
+## Syntax:
+```sql
+SELECT column_name FROM table1
+UNION ALL
+SELECT column_name FROM table2;
+```
+
+---
+
+# Example:
+```sql
+SELECT name FROM it_employees
+UNION ALL
+SELECT name FROM hr_employees;
+```
+
+---
+
+# Result:
+John  
+Sara  
+Mike  
+Sara  
+Anu  
+David  
+
+Sara appears twice.
+
+---
+
+# UNION vs UNION ALL
+
+## UNION:
+Removes duplicates  
+Slightly slower
+
+## UNION ALL:
+Keeps duplicates  
+Faster
+
+---
+
+# INTERSECT
+
+## Definition:
+Returns only common records from both queries.
+
+## Syntax:
+```sql
+SELECT column_name FROM table1
+INTERSECT
+SELECT column_name FROM table2;
+```
+
+---
+
+# Example:
+```sql
+SELECT name FROM it_employees
+INTERSECT
+SELECT name FROM hr_employees;
+```
+
+---
+
+# Result:
+Sara
+
+---
+
+# EXCEPT
+
+## Definition:
+Returns records from the first query that are NOT in the second query.
+
+## Syntax:
+```sql
+SELECT column_name FROM table1
+EXCEPT
+SELECT column_name FROM table2;
+```
+
+---
+
+# Example:
+```sql
+SELECT name FROM it_employees
+EXCEPT
+SELECT name FROM hr_employees;
+```
+
+---
+
+# Result:
+John  
+Mike  
+
+---
+
+# MINUS
+In Oracle, MINUS works like EXCEPT.
+
+```sql
+SELECT name FROM it_employees
+MINUS
+SELECT name FROM hr_employees;
+```
+
+---
+
+# ORDER BY with Set Operations
+
+```sql
+SELECT name FROM it_employees
+UNION
+SELECT name FROM hr_employees
+ORDER BY name;
+```
+
+---
+
+# Using Multiple Columns
+
+```sql
+SELECT id, name FROM it_employees
+UNION
+SELECT id, name FROM hr_employees;
+```
+
+---
+
+# Real-World Examples
+
+## Combine Customer Lists:
+```sql
+SELECT customer_name FROM branch1
+UNION
+SELECT customer_name FROM branch2;
+```
+
+## Find Common Students:
+```sql
+SELECT student_name FROM class_a
+INTERSECT
+SELECT student_name FROM class_b;
+```
+
+## Find Missing Products:
+```sql
+SELECT product_name FROM warehouse_a
+EXCEPT
+SELECT product_name FROM warehouse_b;
+```
+
+---
+
+# Common Mistakes
+
+## Mistake 1: Different Column Count
+Wrong:
+```sql
+SELECT id, name FROM table1
+UNION
+SELECT name FROM table2;
+```
+
+---
+
+## Mistake 2: Incompatible Data Types
+Example:
+INT vs DATE
+
+---
+
+## Mistake 3: Expecting UNION ALL to Remove Duplicates
+It does not.
+
+---
+
+# Best Practices
+
+## 1. Use UNION for Unique Results
+Useful for clean reporting.
+
+---
+
+## 2. Use UNION ALL for Performance
+When duplicates are acceptable.
+
+---
+
+## 3. Check Database Support
+INTERSECT and EXCEPT may vary by DBMS.
+
+---
+
+# Practice Exercises
+
+1. Combine two employee tables  
+2. Show all records including duplicates  
+3. Find common records  
+4. Find records only in one table  
+5. Use ORDER BY with UNION  
+6. Compare UNION vs UNION ALL  
+7. Test EXCEPT with product lists  
+
+---
+
+# Real-World Applications
+
+Set Operations are used in:
+- Multi-branch business reporting
+- Student management systems
+- Inventory comparison
+- Customer data merging
+- HR analytics
+- Financial audits
+
+---
+
+# Summary
+
+UNION:
+Combines + removes duplicates
+
+UNION ALL:
+Combines + keeps duplicates
+
+INTERSECT:
+Common records only
+
+EXCEPT:
+Records in first query but not second
+
+---
+
+# Key Takeaway
+
+Set Operations allow SQL users to combine and compare datasets efficiently.
+
+Mastering Set Operations helps you:
+- Merge datasets
+- Compare records
+- Build advanced reports
+- Improve analytical capability
+- Work across multiple systems
+
+A strong understanding of Set Operations is essential before moving to Constraints, Indexes, and Advanced Database Design.
