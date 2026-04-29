@@ -1,0 +1,437 @@
+# Subqueries in SQL
+
+## Introduction
+A Subquery is a query written inside another SQL query.
+
+It is also called:
+- Inner Query
+- Nested Query
+
+Subqueries are used when one query depends on the result of another query.
+
+Examples:
+- Find employees earning above average salary  
+- Show customers who placed orders  
+- Find products with highest price  
+- Get students scoring above class average  
+
+Subqueries make SQL more dynamic and powerful by allowing step-by-step data retrieval.
+
+---
+
+# Why Subqueries are Important
+Subqueries help:
+- Break complex problems into smaller queries
+- Compare values against calculated results
+- Improve logical problem solving
+- Build advanced reports
+- Support real-world decision-making
+
+---
+
+# Basic Syntax
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE column_name operator (
+    SELECT column_name
+    FROM another_table
+);
+```
+
+---
+
+# Sample Table for Practice
+
+```sql
+CREATE DATABASE company;
+
+USE company;
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    department VARCHAR(50),
+    salary FLOAT
+);
+```
+
+---
+
+# Sample Data
+
+```sql
+INSERT INTO employees VALUES
+(1, 'John', 'IT', 50000),
+(2, 'Sara', 'HR', 45000),
+(3, 'Mike', 'Finance', 60000),
+(4, 'Anu', 'IT', 55000);
+```
+
+---
+
+# Types of Subqueries
+- Single Row Subquery
+- Multiple Row Subquery
+- Correlated Subquery
+- Nested Subquery
+
+---
+
+# Single Row Subquery
+
+## Definition:
+Returns one value.
+
+## Example:
+Find employees earning more than average salary.
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+---
+
+# Explanation:
+1. Inner query calculates average salary  
+2. Outer query finds salaries above that value  
+
+---
+
+# Multiple Row Subquery
+
+## Definition:
+Returns multiple values.
+
+## Example:
+Find employees in departments where salary > 50000 exists.
+
+```sql
+SELECT name
+FROM employees
+WHERE department IN (
+    SELECT department
+    FROM employees
+    WHERE salary > 50000
+);
+```
+
+---
+
+# Common Operators for Multiple Row Subqueries
+- IN
+- ANY
+- ALL
+- EXISTS
+
+---
+
+# IN Operator
+
+```sql
+SELECT name
+FROM employees
+WHERE department IN (
+    SELECT department
+    FROM employees
+    WHERE salary > 50000
+);
+```
+
+---
+
+# ANY Operator
+Returns true if condition matches any value.
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > ANY (
+    SELECT salary
+    FROM employees
+    WHERE department = 'HR'
+);
+```
+
+---
+
+# ALL Operator
+Returns true only if condition matches all values.
+
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > ALL (
+    SELECT salary
+    FROM employees
+    WHERE department = 'HR'
+);
+```
+
+---
+
+# EXISTS Operator
+Checks whether subquery returns records.
+
+```sql
+SELECT name
+FROM employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM employees
+    WHERE salary > 55000
+);
+```
+
+---
+
+# Correlated Subquery
+
+## Definition:
+A subquery that depends on the outer query.
+
+---
+
+# Example:
+Find employees earning above department average.
+
+```sql
+SELECT e1.name, e1.salary, e1.department
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e1.department = e2.department
+);
+```
+
+---
+
+# Explanation:
+Each row compares salary with its own department average.
+
+---
+
+# Nested Subquery
+
+## Definition:
+Subquery inside another subquery.
+
+---
+
+# Example:
+```sql
+SELECT name
+FROM employees
+WHERE department = (
+    SELECT department
+    FROM employees
+    WHERE salary = (
+        SELECT MAX(salary)
+        FROM employees
+    )
+);
+```
+
+---
+
+# Subquery with FROM Clause
+
+## Example:
+```sql
+SELECT department, avg_salary
+FROM (
+    SELECT department, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department
+) AS dept_avg;
+```
+
+---
+
+# Subquery with INSERT
+
+```sql
+INSERT INTO high_salary_employees
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+---
+
+# Subquery with UPDATE
+
+```sql
+UPDATE employees
+SET salary = salary + 5000
+WHERE salary < (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+---
+
+# Subquery with DELETE
+
+```sql
+DELETE FROM employees
+WHERE salary < (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+---
+
+# JOIN vs Subquery
+
+## JOIN:
+Better for combining tables
+
+## Subquery:
+Better for logical comparisons and calculated filtering
+
+---
+
+# Real-World Examples
+
+## Employees Above Average:
+```sql
+SELECT name
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+## Highest Paid Employee:
+```sql
+SELECT name
+FROM employees
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees
+);
+```
+
+## Department of Highest Paid Employee:
+```sql
+SELECT department
+FROM employees
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees
+);
+```
+
+---
+
+# Common Mistakes
+
+## Mistake 1: Subquery Returns Multiple Rows for Single Value
+Wrong:
+```sql
+=
+```
+
+Use:
+```sql
+IN
+```
+
+---
+
+## Mistake 2: Missing Alias in FROM Subquery
+```sql
+AS alias_name
+```
+
+---
+
+## Mistake 3: Poor Performance
+Large subqueries can be slower than joins.
+
+---
+
+# Best Practices
+
+## 1. Use Parentheses Properly
+Subqueries must be enclosed.
+
+---
+
+## 2. Match Operators Correctly
+Single value → =  
+Multiple values → IN
+
+---
+
+## 3. Use Correlated Subqueries Carefully
+They can be slower.
+
+---
+
+# Practice Exercises
+
+1. Find employees earning above average salary  
+2. Find highest salary employee  
+3. Find lowest salary employee  
+4. Find employees in top-paying departments  
+5. Use EXISTS to check high salary employees  
+6. Compare ANY vs ALL  
+7. Build a correlated subquery  
+
+---
+
+# Real-World Applications
+
+Subqueries are used in:
+- Payroll systems
+- Performance analysis
+- Sales intelligence
+- Fraud detection
+- Customer segmentation
+- Financial reporting
+
+---
+
+# Summary
+
+Types:
+- Single Row Subquery
+- Multiple Row Subquery
+- Correlated Subquery
+- Nested Subquery
+
+Operators:
+- IN
+- ANY
+- ALL
+- EXISTS
+
+---
+
+# Key Takeaway
+
+Subqueries make SQL highly flexible by allowing one query to depend on another.
+
+Mastering Subqueries helps you:
+- Solve complex logical problems
+- Build smarter reports
+- Perform advanced filtering
+- Improve analytical thinking
+- Prepare for advanced SQL interviews
+
+A strong understanding of Subqueries is essential before moving to Set Operations, Views, and Advanced SQL Optimization.
