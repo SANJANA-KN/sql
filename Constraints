@@ -1,0 +1,360 @@
+# Constraints in SQL
+
+## Introduction
+Constraints in SQL are rules applied to table columns to enforce data accuracy, consistency, and integrity.
+
+They help ensure that only valid data is stored in the database.
+
+Examples:
+- Prevent duplicate employee IDs  
+- Ensure salary is not negative  
+- Make sure email is unique  
+- Prevent empty names  
+- Link orders to valid customers  
+
+Constraints are critical in real-world applications because bad data can cause system failures, incorrect reports, and security issues.
+
+---
+
+# Why Constraints are Important
+Constraints help:
+- Maintain data integrity
+- Prevent invalid entries
+- Enforce business rules
+- Improve database reliability
+- Reduce data errors
+- Support normalization
+
+Without constraints, databases can become inconsistent and unreliable.
+
+---
+
+# Types of SQL Constraints
+- NOT NULL
+- UNIQUE
+- PRIMARY KEY
+- FOREIGN KEY
+- CHECK
+- DEFAULT
+
+---
+
+# NOT NULL Constraint
+
+## Definition:
+Ensures a column cannot have NULL (empty) values.
+
+## Syntax:
+```sql
+column_name datatype NOT NULL
+```
+
+---
+
+# Example:
+```sql
+CREATE TABLE employees (
+    id INT,
+    name VARCHAR(50) NOT NULL
+);
+```
+
+---
+
+# Result:
+Every employee must have a name.
+
+---
+
+# UNIQUE Constraint
+
+## Definition:
+Ensures all values in a column are different.
+
+## Example:
+```sql
+CREATE TABLE employees (
+    email VARCHAR(100) UNIQUE
+);
+```
+
+---
+
+# Result:
+No duplicate emails allowed.
+
+---
+
+# PRIMARY KEY Constraint
+
+## Definition:
+Uniquely identifies each record.
+
+### Rules:
+- Must be unique
+- Cannot be NULL
+- One primary key per table
+
+---
+
+# Example:
+```sql
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+```
+
+---
+
+# Composite Primary Key
+
+## Definition:
+Primary key using multiple columns.
+
+```sql
+PRIMARY KEY (student_id, course_id)
+```
+
+---
+
+# FOREIGN KEY Constraint
+
+## Definition:
+Links one table to another.
+
+---
+
+# Example:
+```sql
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+```
+
+---
+
+# Result:
+Orders must reference valid customers.
+
+---
+
+# CHECK Constraint
+
+## Definition:
+Ensures values meet specific conditions.
+
+---
+
+# Example:
+```sql
+CREATE TABLE employees (
+    id INT,
+    age INT CHECK (age >= 18)
+);
+```
+
+---
+
+# Result:
+Employees must be at least 18.
+
+---
+
+# DEFAULT Constraint
+
+## Definition:
+Assigns a default value if none is provided.
+
+---
+
+# Example:
+```sql
+CREATE TABLE employees (
+    city VARCHAR(50) DEFAULT 'Bangalore'
+);
+```
+
+---
+
+# Result:
+If city is not entered, Bangalore is used.
+
+---
+
+# Adding Constraints to Existing Tables
+
+## Add NOT NULL:
+```sql
+ALTER TABLE employees
+MODIFY name VARCHAR(50) NOT NULL;
+```
+
+---
+
+## Add UNIQUE:
+```sql
+ALTER TABLE employees
+ADD CONSTRAINT unique_email UNIQUE(email);
+```
+
+---
+
+## Add CHECK:
+```sql
+ALTER TABLE employees
+ADD CONSTRAINT check_salary CHECK (salary > 0);
+```
+
+---
+
+# Dropping Constraints
+
+## Drop UNIQUE:
+```sql
+ALTER TABLE employees
+DROP CONSTRAINT unique_email;
+```
+
+---
+
+# CASCADE Actions with FOREIGN KEY
+
+## ON DELETE CASCADE:
+Deletes child records automatically.
+
+```sql
+FOREIGN KEY (customer_id)
+REFERENCES customers(customer_id)
+ON DELETE CASCADE
+```
+
+---
+
+# ON UPDATE CASCADE:
+Updates child values automatically.
+
+---
+
+# Real-World Example
+
+## Banking:
+- Account number → UNIQUE  
+- Customer ID → PRIMARY KEY  
+- Balance → CHECK(balance >= 0)
+
+---
+
+# Common Mistakes
+
+## Mistake 1: Duplicate PRIMARY KEY
+```sql
+INSERT INTO employees VALUES (1, 'John');
+INSERT INTO employees VALUES (1, 'Sara');
+```
+
+Fails.
+
+---
+
+## Mistake 2: NULL in NOT NULL Column
+```sql
+INSERT INTO employees (id) VALUES (1);
+```
+
+Fails if name is NOT NULL.
+
+---
+
+## Mistake 3: Invalid FOREIGN KEY
+Adding order for non-existent customer.
+
+---
+
+# Best Practices
+
+## 1. Always Use PRIMARY KEY
+Every table should have one.
+
+---
+
+## 2. Use FOREIGN KEY for Relationships
+Prevents orphan records.
+
+---
+
+## 3. Use CHECK for Business Rules
+Improves accuracy.
+
+---
+
+## 4. Use DEFAULT for Common Values
+Reduces manual entry.
+
+---
+
+# Practice Exercises
+
+1. Create table with PRIMARY KEY  
+2. Add UNIQUE email  
+3. Add CHECK for salary > 0  
+4. Use DEFAULT city  
+5. Create customer-order FOREIGN KEY  
+6. Test NOT NULL  
+7. Use composite key  
+
+---
+
+# Real-World Applications
+
+Constraints are used in:
+- Banking systems
+- E-commerce platforms
+- Hospital databases
+- HR systems
+- School portals
+- Inventory systems
+
+---
+
+# Summary
+
+NOT NULL:
+No empty values
+
+UNIQUE:
+No duplicate values
+
+PRIMARY KEY:
+Unique identifier
+
+FOREIGN KEY:
+Relationship between tables
+
+CHECK:
+Condition validation
+
+DEFAULT:
+Automatic default value
+
+---
+
+# Key Takeaway
+
+Constraints are essential for building secure, accurate, and reliable databases.
+
+Mastering Constraints helps you:
+- Prevent bad data
+- Enforce rules
+- Build professional databases
+- Improve system integrity
+- Design scalable applications
+
+A strong understanding of Constraints is essential before learning Indexes, Normalization, and Advanced Database Architecture.
