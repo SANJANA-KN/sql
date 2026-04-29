@@ -1,0 +1,260 @@
+# Stored Procedures in SQL
+
+## Introduction
+A Stored Procedure is a precompiled collection of SQL statements stored inside the database and executed as a single unit.
+
+Think of it like a reusable SQL function for performing tasks repeatedly.
+
+Examples:
+- Add a new employee  
+- Generate salary reports  
+- Update stock automatically  
+- Process customer orders  
+
+Stored Procedures improve performance, security, and code reusability.
+
+---
+
+# Why Stored Procedures are Important
+Stored Procedures help:
+- Reuse SQL logic
+- Improve performance
+- Reduce network traffic
+- Strengthen security
+- Simplify maintenance
+- Automate workflows
+
+---
+
+# Basic Syntax
+
+## MySQL:
+```sql
+DELIMITER //
+
+CREATE PROCEDURE procedure_name()
+BEGIN
+    SQL statements;
+END //
+
+DELIMITER ;
+```
+
+---
+
+# Example:
+```sql
+DELIMITER //
+
+CREATE PROCEDURE GetAllEmployees()
+BEGIN
+    SELECT * FROM employees;
+END //
+
+DELIMITER ;
+```
+
+---
+
+# Execute Procedure
+
+```sql
+CALL GetAllEmployees();
+```
+
+---
+
+# Stored Procedure with Parameters
+
+## IN Parameter:
+```sql
+DELIMITER //
+
+CREATE PROCEDURE GetEmployeeByDept(IN dept_name VARCHAR(50))
+BEGIN
+    SELECT * 
+    FROM employees
+    WHERE department = dept_name;
+END //
+
+DELIMITER ;
+```
+
+---
+
+# Execute:
+```sql
+CALL GetEmployeeByDept('IT');
+```
+
+---
+
+# OUT Parameter
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE GetEmployeeCount(OUT total INT)
+BEGIN
+    SELECT COUNT(*) INTO total
+    FROM employees;
+END //
+
+DELIMITER ;
+```
+
+---
+
+# Benefits of Parameters
+- Dynamic input
+- Reusable logic
+- Flexible automation
+
+---
+
+# Control Flow in Procedures
+
+## IF Statement:
+```sql
+IF salary > 50000 THEN
+    SELECT 'High Salary';
+ELSE
+    SELECT 'Low Salary';
+END IF;
+```
+
+---
+
+# CASE Statement:
+```sql
+CASE
+    WHEN salary > 50000 THEN 'High'
+    ELSE 'Low'
+END
+```
+
+---
+
+# Loops
+- WHILE
+- LOOP
+- REPEAT
+
+---
+
+# Example:
+```sql
+WHILE counter <= 5 DO
+    SET counter = counter + 1;
+END WHILE;
+```
+
+---
+
+# Procedure for Insert
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE AddEmployee(
+    IN emp_id INT,
+    IN emp_name VARCHAR(50),
+    IN emp_salary FLOAT
+)
+BEGIN
+    INSERT INTO employees(id, name, salary)
+    VALUES(emp_id, emp_name, emp_salary);
+END //
+
+DELIMITER ;
+```
+
+---
+
+# Error Handling
+
+```sql
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+BEGIN
+    SELECT 'Error occurred';
+END;
+```
+
+---
+
+# Advantages
+- Reusability
+- Performance
+- Security
+- Centralized logic
+- Reduced duplication
+
+---
+
+# Disadvantages
+- Debugging complexity
+- DB-specific syntax
+- Maintenance challenges
+
+---
+
+# Stored Procedure vs Function
+
+## Procedure:
+Can perform multiple operations
+
+## Function:
+Returns one value
+
+---
+
+# Real-World Applications
+- Payroll automation
+- Order processing
+- Inventory updates
+- Banking transactions
+- Reporting systems
+
+---
+
+# Best Practices
+- Use meaningful names
+- Keep logic modular
+- Validate parameters
+- Handle errors
+- Avoid unnecessary complexity
+
+---
+
+# Practice Exercises
+
+1. Create procedure to show all employees  
+2. Create parameterized procedure  
+3. Insert employee using procedure  
+4. Use OUT parameter  
+5. Build salary checker  
+6. Add error handling  
+7. Compare procedure vs function  
+
+---
+
+# Summary
+
+Stored Procedures:
+- Precompiled SQL
+- Reusable
+- Secure
+- Faster
+
+---
+
+# Key Takeaway
+
+Stored Procedures are essential for automation, performance, and enterprise-grade SQL development.
+
+Mastering Stored Procedures helps you:
+- Automate workflows
+- Build scalable systems
+- Improve performance
+- Secure business logic
+- Develop production-ready applications
