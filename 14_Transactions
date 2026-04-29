@@ -1,0 +1,191 @@
+# Transactions in SQL
+
+## Introduction
+A Transaction is a sequence of SQL operations performed as a single logical unit of work.
+
+A transaction ensures that all operations succeed together or fail together.
+
+Example:
+Bank Transfer:
+- Deduct money from Account A  
+- Add money to Account B  
+
+If one fails, both must fail.
+
+---
+
+# Why Transactions are Important
+Transactions help:
+- Maintain consistency
+- Prevent partial updates
+- Protect critical operations
+- Ensure reliability
+- Support recovery
+
+---
+
+# ACID Properties
+
+## A → Atomicity
+All or nothing
+
+## C → Consistency
+Valid state maintained
+
+## I → Isolation
+Transactions do not interfere
+
+## D → Durability
+Committed changes stay permanent
+
+---
+
+# Basic Transaction Commands
+- BEGIN / START TRANSACTION
+- COMMIT
+- ROLLBACK
+- SAVEPOINT
+
+---
+
+# START TRANSACTION
+
+```sql
+START TRANSACTION;
+```
+
+---
+
+# COMMIT
+
+```sql
+COMMIT;
+```
+
+Saves changes permanently.
+
+---
+
+# ROLLBACK
+
+```sql
+ROLLBACK;
+```
+
+Reverts changes.
+
+---
+
+# Example:
+```sql
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 500
+WHERE id = 1;
+
+UPDATE accounts
+SET balance = balance + 500
+WHERE id = 2;
+
+COMMIT;
+```
+
+---
+
+# SAVEPOINT
+
+```sql
+SAVEPOINT point1;
+```
+
+---
+
+# Rollback to Savepoint
+
+```sql
+ROLLBACK TO point1;
+```
+
+---
+
+# Auto Commit
+Many DBMS auto-commit by default.
+
+Disable:
+```sql
+SET autocommit = 0;
+```
+
+---
+
+# Transaction Failure Example
+If second update fails:
+```sql
+ROLLBACK;
+```
+
+---
+
+# Isolation Issues
+- Dirty Read
+- Non-Repeatable Read
+- Phantom Read
+
+---
+
+# Isolation Levels
+- READ UNCOMMITTED
+- READ COMMITTED
+- REPEATABLE READ
+- SERIALIZABLE
+
+---
+
+# Best Practices
+- Keep transactions short
+- Avoid locks too long
+- Use savepoints
+- Handle errors
+- Commit only after validation
+
+---
+
+# Real-World Applications
+- Banking
+- E-commerce checkout
+- Payroll
+- Booking systems
+- Inventory
+
+---
+
+# Practice Exercises
+
+1. Create money transfer transaction  
+2. Use rollback  
+3. Use savepoint  
+4. Test failure recovery  
+5. Compare isolation levels  
+
+---
+
+# Summary
+
+Transactions:
+- Atomic
+- Reliable
+- Safe
+- Recoverable
+
+---
+
+# Key Takeaway
+
+Transactions are essential for secure and reliable data operations.
+
+Mastering Transactions helps you:
+- Protect business-critical systems
+- Prevent data corruption
+- Handle failures safely
+- Build enterprise-grade systems
