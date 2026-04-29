@@ -1,0 +1,345 @@
+# GROUP BY and HAVING in SQL
+
+## Introduction
+GROUP BY and HAVING are powerful SQL concepts used to organize data into groups and apply conditions to summarized results.
+
+When working with large datasets, businesses often need summarized insights rather than individual records.
+
+Examples:
+- Count employees in each department  
+- Find total sales by city  
+- Show departments with more than 5 employees  
+- Calculate average salary per department  
+
+GROUP BY helps combine similar records into categories, while HAVING filters those grouped results.
+
+---
+
+# Why GROUP BY and HAVING are Important
+These concepts help:
+- Summarize large datasets
+- Generate business reports
+- Perform analytics
+- Support dashboards
+- Improve decision-making
+
+Without GROUP BY and HAVING, advanced reporting would be difficult.
+
+---
+
+# Sample Table for Practice
+
+```sql
+CREATE DATABASE company;
+
+USE company;
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    department VARCHAR(50),
+    city VARCHAR(50),
+    salary FLOAT
+);
+```
+
+---
+
+# Sample Data
+
+```sql
+INSERT INTO employees VALUES
+(1, 'John', 'IT', 'Bangalore', 50000),
+(2, 'Sara', 'HR', 'Mumbai', 45000),
+(3, 'Mike', 'Finance', 'Delhi', 60000),
+(4, 'Anu', 'IT', 'Bangalore', 55000),
+(5, 'David', 'HR', 'Mumbai', 47000);
+```
+
+---
+
+# What is GROUP BY?
+GROUP BY is used to group rows that have the same values in specified columns.
+
+## Syntax:
+```sql
+SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name;
+```
+
+---
+
+# Count Employees by Department
+
+```sql
+SELECT department, COUNT(*) AS total_employees
+FROM employees
+GROUP BY department;
+```
+
+---
+
+# Average Salary by Department
+
+```sql
+SELECT department, AVG(salary) AS average_salary
+FROM employees
+GROUP BY department;
+```
+
+---
+
+# Total Salary by City
+
+```sql
+SELECT city, SUM(salary) AS total_salary
+FROM employees
+GROUP BY city;
+```
+
+---
+
+# Common Aggregate Functions Used with GROUP BY
+- COUNT()
+- SUM()
+- AVG()
+- MIN()
+- MAX()
+
+---
+
+# Grouping by Multiple Columns
+
+## Example:
+```sql
+SELECT department, city, COUNT(*) AS total
+FROM employees
+GROUP BY department, city;
+```
+
+This creates groups based on department and city combinations.
+
+---
+
+# What is HAVING?
+HAVING is used to filter grouped data after aggregation.
+
+## Syntax:
+```sql
+SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING condition;
+```
+
+---
+
+# Departments with More Than 1 Employee
+
+```sql
+SELECT department, COUNT(*) AS total_employees
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 1;
+```
+
+---
+
+# Cities with Average Salary Above 50000
+
+```sql
+SELECT city, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY city
+HAVING AVG(salary) > 50000;
+```
+
+---
+
+# WHERE vs HAVING
+
+## WHERE
+Filters rows before grouping.
+
+```sql
+SELECT * FROM employees
+WHERE salary > 50000;
+```
+
+---
+
+## HAVING
+Filters groups after grouping.
+
+```sql
+SELECT department, AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+```
+
+---
+
+# Important Difference
+
+## WHERE:
+Works on individual rows
+
+## HAVING:
+Works on grouped results
+
+---
+
+# Combining WHERE + GROUP BY + HAVING
+
+## Example:
+```sql
+SELECT department, COUNT(*) AS total
+FROM employees
+WHERE city = 'Bangalore'
+GROUP BY department
+HAVING COUNT(*) > 1;
+```
+
+---
+
+# ORDER BY with GROUP BY
+
+```sql
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department
+ORDER BY avg_salary DESC;
+```
+
+---
+
+# Real-World Examples
+
+## Total Employees Per Department:
+```sql
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department;
+```
+
+## Departments with High Salary:
+```sql
+SELECT department, AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+```
+
+## Total Salary by City:
+```sql
+SELECT city, SUM(salary)
+FROM employees
+GROUP BY city;
+```
+
+---
+
+# Common Mistakes
+
+## Mistake 1: Using HAVING Without GROUP BY
+Usually incorrect unless using aggregate directly.
+
+---
+
+## Mistake 2: Selecting Non-Grouped Columns
+Wrong:
+```sql
+SELECT name, department, COUNT(*)
+FROM employees
+GROUP BY department;
+```
+
+Problem:
+name is not grouped or aggregated.
+
+---
+
+## Mistake 3: Confusing WHERE and HAVING
+WHERE → Before grouping  
+HAVING → After grouping
+
+---
+
+# Best Practices
+
+## 1. Use Aliases
+```sql
+SELECT department, COUNT(*) AS total
+FROM employees
+GROUP BY department;
+```
+
+---
+
+## 2. Use WHERE for Early Filtering
+Reduces processing.
+
+---
+
+## 3. Use HAVING for Aggregate Conditions
+Makes reports accurate.
+
+---
+
+# Practice Exercises
+
+1. Count employees in each department  
+2. Find average salary by city  
+3. Show departments with more than 2 employees  
+4. Find cities with total salary above 100000  
+5. Group employees by department and city  
+6. Sort departments by average salary  
+7. Use WHERE and HAVING together  
+
+---
+
+# Real-World Applications
+
+GROUP BY and HAVING are used in:
+- HR reports
+- Sales analytics
+- Customer segmentation
+- Financial summaries
+- Performance dashboards
+- Business intelligence
+
+---
+
+# Summary
+
+GROUP BY:
+- Groups similar rows
+- Works with aggregate functions
+
+HAVING:
+- Filters grouped data
+- Works after aggregation
+
+Common Functions:
+- COUNT()
+- SUM()
+- AVG()
+- MIN()
+- MAX()
+
+---
+
+# Key Takeaway
+
+GROUP BY and HAVING transform raw data into meaningful business insights.
+
+Mastering these concepts helps you:
+- Build professional reports
+- Analyze grouped trends
+- Create dashboards
+- Improve decision-making
+- Prepare for advanced SQL analytics
+
+A strong understanding of GROUP BY and HAVING is essential before moving to Joins, Subqueries, and Advanced Reporting.
