@@ -1,0 +1,187 @@
+# SQL Security
+
+## Introduction
+SQL Security focuses on protecting databases from unauthorized access, data leaks, malicious attacks, and accidental misuse.
+
+Security is critical because databases often store:
+- Customer data
+- Financial records
+- Employee details
+- Medical information
+- Business intelligence
+
+---
+
+# Why SQL Security is Important
+Security helps:
+- Prevent unauthorized access
+- Protect sensitive data
+- Avoid SQL injection
+- Maintain compliance
+- Secure enterprise systems
+
+---
+
+# Common Security Concepts
+- Authentication
+- Authorization
+- Roles
+- Privileges
+- Encryption
+- Backup
+- Auditing
+
+---
+
+# User Creation
+
+```sql
+CREATE USER 'john'@'localhost'
+IDENTIFIED BY 'StrongPassword123';
+```
+
+---
+
+# Grant Permissions
+
+```sql
+GRANT SELECT, INSERT
+ON company.*
+TO 'john'@'localhost';
+```
+
+---
+
+# Revoke Permissions
+
+```sql
+REVOKE INSERT
+ON company.*
+FROM 'john'@'localhost';
+```
+
+---
+
+# Roles
+
+```sql
+CREATE ROLE hr_role;
+
+GRANT SELECT ON employees TO hr_role;
+```
+
+---
+
+# Principle of Least Privilege
+Users should only get minimum required permissions.
+
+---
+
+# SQL Injection
+
+## Dangerous:
+```sql
+SELECT * FROM users
+WHERE username = 'admin' OR '1'='1';
+```
+
+---
+
+# Prevention:
+- Parameterized queries
+- Prepared statements
+- Input validation
+
+---
+
+# Prepared Statement Example
+```sql
+SELECT * FROM users
+WHERE username = ?;
+```
+
+---
+
+# Encryption
+- Data at rest
+- Data in transit
+- Password hashing
+
+---
+
+# Backup Security
+- Regular backups
+- Encrypted backups
+- Recovery plans
+
+---
+
+# Auditing
+Track:
+- Login attempts
+- Failed access
+- Data changes
+
+---
+
+# Common Threats
+- SQL Injection
+- Privilege escalation
+- Weak passwords
+- Insider threats
+
+---
+
+# Best Practices
+- Strong passwords
+- Least privilege
+- Use SSL
+- Regular updates
+- Patch vulnerabilities
+- Monitor logs
+- Backup frequently
+
+---
+
+# Real-World Applications
+- Banking
+- Healthcare
+- Government
+- SaaS
+- Enterprise platforms
+
+---
+
+# Practice Exercises
+
+1. Create secure user  
+2. Grant minimal permissions  
+3. Revoke access  
+4. Build role  
+5. Prevent injection  
+6. Audit actions  
+
+---
+
+# Summary
+
+SQL Security includes:
+- Access control
+- User management
+- Roles
+- Injection prevention
+- Encryption
+- Auditing
+
+---
+
+# Key Takeaway
+
+SQL Security is essential for protecting data, users, and enterprise systems.
+
+Mastering SQL Security helps you:
+- Protect sensitive systems
+- Prevent attacks
+- Build trusted applications
+- Meet compliance standards
+- Design secure enterprise architectures
