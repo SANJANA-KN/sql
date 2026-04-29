@@ -1,0 +1,202 @@
+# Normalization in SQL
+
+## Introduction
+Normalization is the process of organizing database tables to reduce redundancy and improve data integrity.
+
+Its goal is to:
+- Remove duplicate data
+- Improve consistency
+- Simplify updates
+- Prevent anomalies
+
+Normalization ensures databases are clean, efficient, and scalable.
+
+---
+
+# Why Normalization is Important
+Normalization helps:
+- Reduce duplicate storage
+- Prevent insertion anomalies
+- Prevent update anomalies
+- Prevent deletion anomalies
+- Improve structure
+
+---
+
+# Key Concepts
+- Redundancy
+- Dependency
+- Functional Dependency
+- Primary Key
+
+---
+
+# Normal Forms
+- First Normal Form (1NF)
+- Second Normal Form (2NF)
+- Third Normal Form (3NF)
+- Boyce-Codd Normal Form (BCNF)
+
+---
+
+# First Normal Form (1NF)
+
+## Rule:
+Each column must contain atomic values.
+
+## Wrong:
+```sql
+Student | Subjects
+John    | Math, Science
+```
+
+## Correct:
+```sql
+Student | Subject
+John    | Math
+John    | Science
+```
+
+---
+
+# Second Normal Form (2NF)
+
+## Rule:
+Must be in 1NF + no partial dependency.
+
+---
+
+# Third Normal Form (3NF)
+
+## Rule:
+Must be in 2NF + no transitive dependency.
+
+---
+
+# Example:
+Wrong:
+StudentID → DepartmentID → DepartmentName
+
+Correct:
+Separate department table.
+
+---
+
+# BCNF
+
+## Rule:
+Every determinant must be a candidate key.
+
+---
+
+# Anomalies
+
+## Insert Anomaly:
+Cannot add department without student.
+
+## Update Anomaly:
+Department name repeated multiple times.
+
+## Delete Anomaly:
+Deleting last student removes department info.
+
+---
+
+# Sample Unnormalized Table
+
+```sql
+StudentID | StudentName | Course | Instructor
+```
+
+---
+
+# Normalized Structure
+
+## Students Table
+```sql
+StudentID | StudentName
+```
+
+## Courses Table
+```sql
+CourseID | CourseName
+```
+
+## Enrollment Table
+```sql
+StudentID | CourseID
+```
+
+---
+
+# Benefits
+- Better design
+- Less redundancy
+- Easier maintenance
+- Improved consistency
+
+---
+
+# Drawbacks
+- More joins
+- Complex queries
+
+---
+
+# Denormalization
+Sometimes used for performance.
+
+---
+
+# Best Practices
+- Normalize to 3NF for most systems
+- Balance performance
+- Use proper keys
+
+---
+
+# Practice Exercises
+
+1. Convert unnormalized table to 1NF  
+2. Convert to 2NF  
+3. Convert to 3NF  
+4. Identify anomalies  
+5. Build normalized schema  
+
+---
+
+# Real-World Applications
+- Banking
+- ERP
+- Education systems
+- Hospital databases
+- Enterprise systems
+
+---
+
+# Summary
+
+1NF:
+Atomic values
+
+2NF:
+No partial dependency
+
+3NF:
+No transitive dependency
+
+BCNF:
+Advanced normalization
+
+---
+
+# Key Takeaway
+
+Normalization is essential for efficient database design.
+
+Mastering Normalization helps you:
+- Design scalable databases
+- Reduce redundancy
+- Improve integrity
+- Prevent anomalies
+- Build enterprise systems
